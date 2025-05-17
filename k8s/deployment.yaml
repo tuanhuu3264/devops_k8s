@@ -21,13 +21,25 @@ spec:
             - name: DB_HOST
               value: localhost
             - name: DB_PORT
-              value: "5432"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PORT
             - name: DB_USERNAME
-              value: tuanhuu3264
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_USERNAME
             - name: DB_PASSWORD
-              value: "@1234"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PASSWORD
             - name: DB_NAME
-              value: test
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_NAME
 
         - name: postgres
           image: postgres:latest
@@ -35,11 +47,20 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_USER
-              value: tuanhuu3264
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_USERNAME
             - name: POSTGRES_PASSWORD
-              value: "@1234"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PASSWORD
             - name: POSTGRES_DB
-              value: test
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_NAME
           volumeMounts:
             - name: db-init
               mountPath: /docker-entrypoint-initdb.d/
