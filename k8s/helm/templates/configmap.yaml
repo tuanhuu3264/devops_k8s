@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-script
+data:
+  init.sql: |
+    -- Add your init SQL here
+    CREATE TABLE IF NOT EXISTS example (id SERIAL PRIMARY KEY, name TEXT);

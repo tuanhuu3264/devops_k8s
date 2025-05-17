@@ -1,0 +1,36 @@
+controller:
+  serviceAccount:
+    create: true
+    name: jenkins-sa
+
+  rbac:
+    create: true
+
+  installPlugins:
+    - kubernetes:1.31.3
+    - workflow-job:2.40
+    - workflow-aggregator:2.6
+    - credentials-binding:1.27
+    - git:4.11.3
+    - configuration-as-code:1.55
+
+  # Cho phép container có quyền truy cập tới API server
+  containerSecurityContext:
+    runAsUser: 0
+
+  podSecurityContext:
+    runAsUser: 0
+
+  # Cài sẵn kubectl và helm vào Jenkins controller container
+  initContainers:
+    - name: install-tools
+      image: bitnami/kubectl:latest
+      command:
+        - sh
+        - -c
+        - |
+          cp /opt/bitnami/kubectl/bin/kubectl /bitnami/jenkins/kubectl && \
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+      volumeMounts:
+        - name: jenkins-home
+          mountPath: /bitnami/jenkins

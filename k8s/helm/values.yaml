@@ -1,0 +1,19 @@
+replicaCount: 3
+
+image:
+  repository: tuanhuu3264/api-test-k8s
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 4000
+
+postgres:
+  image: postgres:latest
+  port: 5432
+  user: tuanhuu3264
+  password: "@1234"
+  db: test
+
+resources: {}

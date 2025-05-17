@@ -1,0 +1,5 @@
+
+CREATE TABLE IF NOT EXISTS public.accounts (
+  id BIGSERIAL PRIMARY KEY,  
+  name TEXT NOT NULL
+);
