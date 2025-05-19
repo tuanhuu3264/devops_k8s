@@ -1,8 +1,7 @@
 controller:
   serviceAccount:
     create: true
-    name: jenkins-sa
-
+    name: default
   rbac:
     create: true
 
